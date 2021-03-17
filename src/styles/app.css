@@ -1,0 +1,10 @@
+.App {
+	height: 100% !important;
+	width: 100% !important;
+	top: 0px !important;
+	right: 0px !important;
+	left: 0px !important;
+	bottom: 0px !important;
+	position: absolute;
+	padding: 0px !important;
+}
