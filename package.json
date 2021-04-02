@@ -12,11 +12,13 @@
     "arca-ontodia": "^0.9.44",
     "framer-motion": "^2.9.4",
     "react": "^17.0.1",
-    "venti": "^1.6.0",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.3",
     "react-scripts": "4.0.0",
+    "redux": "^4.0.5",
     "styled-components": "^5.2.1",
     "uuid": "^8.3.1",
+    "venti": "^1.6.0",
     "web-vitals": "^0.2.4"
   },
   "devDependencies": {
