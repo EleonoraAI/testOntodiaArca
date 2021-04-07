@@ -229,7 +229,7 @@ export default class OntodiaGraph extends React.Component {
 			// 	this.setState({ currentEvent: `changeLang: ${e}`});
 			// },
 
-
+           
 
 			onPointerDown: (element) => {
 				if (
@@ -393,7 +393,7 @@ export default class OntodiaGraph extends React.Component {
 			},
 
 		};
-
+        
 		return ( <
 			ConnectedOntodia {
 				...props
@@ -408,8 +408,8 @@ const mapStateToProps = state => {
 		watermarkSvg: state.watermarkSvg,
 		watermarkUrl: state.watermarkUrl,
 		criteria: state.criteria,
-		language: state.language
-
+		language: state.language,
+        halo:state.currentIri
 
 
 
@@ -428,6 +428,36 @@ const mapDispatchToProps = dispatch => {
 				currentEvent: `${e}`
 			});
 		},
+		onPointerDown: (element) => {if (
+			element.target &&
+			 element.target.iri
+			
+		) {
+			var label_text = element.target.data.label.values.filter(function (key) {
+				if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
+					return (key.text)
+				}
+			});
+
+			dispatch({
+				type: 'SETCURRENTIRI',
+				currentIri: element.target.iri
+			});
+			// dispatch({
+			// 	type: 'SETCURRENTLABEL',
+			// 	currentLabel: label_text
+			// });
+
+			//call VENTI api
+			state.set('SelectedElement', {
+				currentIri: element.target.iri,
+				type: 'concept',
+				label: label_text,
+			})
+			// //console.log(element)
+
+
+		}}
 
 	};
 

@@ -19,6 +19,10 @@ const reducer = (state = initialState, action) => {
             return{
                ...state, language:action.currentEvent
             };
+            case('SETCURRENTIRI'):
+            return{
+             ...state, currentIri: action.currentIri
+            }
         default:
             return state;
     }
