@@ -5,6 +5,7 @@ const initialState = {
     watermarkSvg: ontodiaLogoSvg,
     watermarkUrl: ONTODIA_WEBSITE,
     criteria: {},
+    
 
 
 }
@@ -13,6 +14,10 @@ const reducer = (state = initialState, action) => {
         case ('UPDATECRITERIA'):
             return {
                 ...state, criteria: action.criteria
+            };
+            case('LANGUAGECHANGE'):
+            return{
+               ...state, language:action.currentEvent
             };
         default:
             return state;

@@ -1,7 +1,12 @@
 import * as React from 'react';
 
-import { connect } from 'react-redux';
-import { State, state } from 'venti';
+import {
+	connect
+} from 'react-redux';
+import {
+	State,
+	state
+} from 'venti';
 
 import '../styles/graph.css';
 
@@ -16,52 +21,48 @@ function onWorkspaceMounted(workspace) {
 	const model = workspace.getModel();
 
 	model.importLayout({
-	
+
 		diagram: Ontodia.makeSerializedDiagram({
-		  linkTypeOptions: [
-		    {
-		      "@type": "LinkTypeOptions",
-		      property: "http://dbpedia.org/ontology/wikiPageWikiLink",
-		      visible: false
-		    },
-		    {
-		      "@type": "LinkTypeOptions",
-		      property: "http://dbpedia.org/ontology/associate",
-		      visible: false
-		    },
-		    {
-		      "@type": "LinkTypeOptions",
-		      property: "http://www.w3.org/2000/01/rdf-schema#seeAlso",
-		      visible: false
-		    },
-		    {
-		      "@type": "LinkTypeOptions",
-		      property: "http://dbpedia.org/ontology/wikiPageEternalLink",
-		      visible: false
-		    }
-		  ]
+			linkTypeOptions: [{
+					"@type": "LinkTypeOptions",
+					property: "http://dbpedia.org/ontology/wikiPageWikiLink",
+					visible: false
+				},
+				{
+					"@type": "LinkTypeOptions",
+					property: "http://dbpedia.org/ontology/associate",
+					visible: false
+				},
+				{
+					"@type": "LinkTypeOptions",
+					property: "http://www.w3.org/2000/01/rdf-schema#seeAlso",
+					visible: false
+				},
+				{
+					"@type": "LinkTypeOptions",
+					property: "http://dbpedia.org/ontology/wikiPageEternalLink",
+					visible: false
+				}
+			]
 		}),
 		validateLinks: true,
 
 		dataProvider: new Ontodia.CompositeDataProvider(
 			[
-				new Ontodia.SparqlDataProvider(
-					{
-						endpointUrl: '/sparql-endpoint',
-						imagePropertyUris: [
-							// "http://xmlns.com/foaf/0.1/depiction",
-							'http://xmlns.com/foaf/0.1/img',
-						],
+				new Ontodia.SparqlDataProvider({
+					endpointUrl: '/sparql-endpoint',
+					imagePropertyUris: [
+						// "http://xmlns.com/foaf/0.1/depiction",
+						'http://xmlns.com/foaf/0.1/img',
+					],
 
-					},
-					{
-						...Ontodia.OWLStatsSettings,
-						...{
-							fullTextSearch: {
-								prefix:
-									'PREFIX bds: <http://www.bigdata.com/rdf/search#>' + '\n' +
-									'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' + '\n',
-								queryPattern: `
+				}, {
+					...Ontodia.OWLStatsSettings,
+					...{
+						fullTextSearch: {
+							prefix: 'PREFIX bds: <http://www.bigdata.com/rdf/search#>' + '\n' +
+								'PREFIX skos: <http://www.w3.org/2004/02/skos/core#>' + '\n',
+							queryPattern: `
 								
 									?inst rdfs:label | skos:altLabel ?searchLabel.
 									FILTER(NOT EXISTS { 
@@ -81,9 +82,9 @@ function onWorkspaceMounted(workspace) {
 									}
 								
 									`,
-							},
+						},
 
-							elementInfoQuery: `
+						elementInfoQuery: `
 									CONSTRUCT {
 										?inst rdf:type ?class;
 											rdfs:label ?label;
@@ -97,12 +98,10 @@ function onWorkspaceMounted(workspace) {
 										VALUES ?labelProp { rdfs:label foaf:name }
 									} VALUES (?inst) {\${ids}}
 							`,
-						},
-					}
-				),
+					},
+				}),
 
-				new Ontodia.SparqlDataProvider(
-					{
+				new Ontodia.SparqlDataProvider({
 						endpointUrl: '/dbpedia',
 						imagePropertyUris: [
 							'http://xmlns.com/foaf/0.1/depiction',
@@ -110,9 +109,8 @@ function onWorkspaceMounted(workspace) {
 						],
 						queryMethod: Ontodia.SparqlQueryMethod.GET,
 					},
-					Ontodia.DBPediaSettings,
-					{
-						...Ontodia.DBPediaSettings, 
+					Ontodia.DBPediaSettings, {
+						...Ontodia.DBPediaSettings,
 						...{
 							fullTextSearch: {
 								prefix: 'PREFIX dbo: <http://dbpedia.org/ontology/>\n',
@@ -136,7 +134,7 @@ function onWorkspaceMounted(workspace) {
 
 							`,
 
-						
+
 							elementInfoQuery: `
 								CONSTRUCT {
 									?inst rdf:type ?class .
@@ -170,61 +168,66 @@ function onWorkspaceMounted(workspace) {
 						},
 					}
 				),
-			],
-			{ mergeMode: 'fetchAll' }
-			
+			], {
+				mergeMode: 'fetchAll'
+			}
+
 		),
 	});
 }
 
 export default class OntodiaGraph extends React.Component {
-	
+
 
 	render() {
 
 		const props = {
-			
+
 			onWorkspaceEvent: (e) => {
-				if (e==='search:queryItems') {
+				if (e === 'search:queryItems') {
 					try {
 						const search = window.$r.state.criteria["text"]
-						this.setState({ currentEvent: `${e}: ${search}` });
+						this.setState({
+							currentEvent: `${e}: ${search}`
+						});
 						//call VENTI api
-						state.set('ArcaEvent',{
+						state.set('ArcaEvent', {
 							event: `${e}: ${search}`,
 							timeStamp: new Date().toLocaleString(),
 						})
 						// console.log('TRY',search, window)
-					}
-					catch {
+					} catch {
 						const search = 'no_available'
-						this.setState({ currentEvent: `${e}: ${search}` });
+						this.setState({
+							currentEvent: `${e}: ${search}`
+						});
 						//call VENTI api
-						state.set('ArcaEvent',{
+						state.set('ArcaEvent', {
 							event: `${e}: ${search}`,
 							timeStamp: new Date().toLocaleString(),
 						})
 						// console.log('CATCH', window)
 					}
-				}
-				else {
-					this.setState({ currentEvent: `${e}`});
+				} else {
+					this.setState({
+						currentEvent: `${e}`
+					});
 					//call VENTI api
-					state.set('ArcaEvent',{
+					state.set('ArcaEvent', {
 						event: e,
 						timeStamp: new Date().toLocaleString(),
 					})
 				}
-				if(e==='editor:changeSelection') {
+				if (e === 'editor:changeSelection') {
 					// console.log(props)
 				}
-					
-			},
-			
 
-			onLanguageChange: (e) => {
-				this.setState({ currentEvent: `changeLang: ${e}`});
 			},
+
+
+			// onLanguageChange: (e) => {
+			// 	this.setState({ currentEvent: `changeLang: ${e}`});
+			// },
 
 
 
@@ -238,52 +241,52 @@ export default class OntodiaGraph extends React.Component {
 				) {
 					var label_text = element.target.data.label.values.filter(function (key) {
 						if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
-							return(key.text)
+							return (key.text)
 						}
 					});
 
-					this.setState({ currentIri: element.target.iri });
-					this.setState({ currentLabel: label_text });
+					this.setState({
+						currentIri: element.target.iri
+					});
+					this.setState({
+						currentLabel: label_text
+					});
 
 					//call VENTI api
-					state.set('SelectedElement',{
+					state.set('SelectedElement', {
 						currentIri: element.target.iri,
 						type: 'concept',
 						label: label_text,
-					  })
+					})
 					// //console.log(element)
 
-					
-				}
-				else if (
+
+				} else if (
 					element.target &&
 					element.target.iri &&
 					(!this.state ||
 						(element.target.iri !== this.state.currentIri &&
-							element.target.iri.indexOf('lerma.it') >=1 ))
-				)
-				{
+							element.target.iri.indexOf('lerma.it') >= 1))
+				) {
 					// EXTRACT LABEL WITH datatype: http://www.w3.org/2001/XMLSchema#string
 					var label_text = element.target.data.label.values.filter(function (key) {
 						if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
-							return(key.text)
+							return (key.text)
 						}
 					});
 					//call VENTI api
-					state.set('SelectedElement',{
+					state.set('SelectedElement', {
 						currentIri: element.target.iri,
 						type: 'book',
 						label: label_text,
-					  })
+					})
 				}
 			},
-
 			leftPanelInitiallyOpen: true,
 			ref: onWorkspaceMounted,
 
 
-			languages: [
-				{
+			languages: [{
 					code: 'it',
 					label: 'Italiano',
 				},
@@ -302,9 +305,11 @@ export default class OntodiaGraph extends React.Component {
 			],
 			language: 'it',
 			viewOptions: {
-				onIriClick: ({ iri }) => window.open(iri),
+				onIriClick: ({
+					iri
+				}) => window.open(iri),
 			},
-			
+
 
 			typeStyleResolver: (types) => {
 				//BOOK
@@ -386,32 +391,47 @@ export default class OntodiaGraph extends React.Component {
 					};
 				}
 			},
-			
+
 		};
-		
-		return (
-			<ConnectedOntodia {...props}/>
+
+		return ( <
+			ConnectedOntodia {
+				...props
+			}
+			/>
 		);
 	}
-	 
+
 }
 const mapStateToProps = state => {
 	return {
 		watermarkSvg: state.watermarkSvg,
-		watermarkUrl:state.watermarkUrl,
-		criteria:state.criteria,
-		
-		
+		watermarkUrl: state.watermarkUrl,
+		criteria: state.criteria,
+		language: state.language
+
+
+
+
 	};
 };
-//onSearchCriteriaChanged
-const mapDispatchToProps = dispatch =>{
+
+const mapDispatchToProps = dispatch => {
 	return {
-		onSearchCriteriaChanged: (value) => dispatch({type: 'UPDATECRITERIA',
-	criteria:value}),
-	
-	
+		onSearchCriteriaChanged: (value) => dispatch({
+			type: 'UPDATECRITERIA',
+			criteria: value
+		}),
+		onLanguageChange: (e) => {
+			dispatch({
+				type: 'LANGUAGECHANGE',
+				currentEvent: `${e}`
+			});
+		},
+
 	};
 
 };
-  export const ConnectedOntodia = connect(mapStateToProps, mapDispatchToProps,null,{forwardRef:true})(Ontodia.Workspace)
+export const ConnectedOntodia = connect(mapStateToProps, mapDispatchToProps, null, {
+	forwardRef: true
+})(Ontodia.Workspace)
