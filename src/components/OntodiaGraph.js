@@ -1,7 +1,8 @@
-import React from 'react';
+import * as React from 'react';
+
 import { connect } from 'react-redux';
 import { State, state } from 'venti';
-import reducer from '../store/reducer';
+
 import '../styles/graph.css';
 
 var Ontodia = require('arca-ontodia');
@@ -176,7 +177,7 @@ function onWorkspaceMounted(workspace) {
 	});
 }
 
-export class OntodiaGraph extends React.Component {
+export default class OntodiaGraph extends React.Component {
 	
 
 	render() {
@@ -389,7 +390,7 @@ export class OntodiaGraph extends React.Component {
 		};
 		
 		return (
-			<Ontodia.Workspace {...props}/>
+			<ConnectedOntodia {...props}/>
 		);
 	}
 	 
@@ -398,14 +399,19 @@ const mapStateToProps = state => {
 	return {
 		watermarkSvg: state.watermarkSvg,
 		watermarkUrl:state.watermarkUrl,
-		criteria:state.criteria
+		criteria:state.criteria,
+		
+		
 	};
 };
 //onSearchCriteriaChanged
 const mapDispatchToProps = dispatch =>{
 	return {
-		onSearchCriteriaChanged: () => dispatch({type: 'UPDATECRITERIA'})
+		onSearchCriteriaChanged: (value) => dispatch({type: 'UPDATECRITERIA',
+	criteria:value}),
+	
+	
 	};
 
 };
-  export default connect(mapStateToProps, mapDispatchToProps)(Ontodia.Workspace)
+  export const ConnectedOntodia = connect(mapStateToProps, mapDispatchToProps,null,{forwardRef:true})(Ontodia.Workspace)

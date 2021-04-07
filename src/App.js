@@ -1,4 +1,5 @@
 //Components
+import * as React from 'react';
 import AppOntodiaGraph from './components/OntodiaGraph'
 import './styles/app.css';
 
