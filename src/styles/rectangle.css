@@ -1,0 +1,9 @@
+.Rectangle{
+    width:400px;
+    height:auto;
+    background: #ccc;
+    color:blueviolet;
+    border:1px solid black;
+    float:right;
+
+}

@@ -229,7 +229,7 @@ export default class OntodiaGraph extends React.Component {
 			// 	this.setState({ currentEvent: `changeLang: ${e}`});
 			// },
 
-           
+
 
 			onPointerDown: (element) => {
 				if (
@@ -393,7 +393,7 @@ export default class OntodiaGraph extends React.Component {
 			},
 
 		};
-        
+
 		return ( <
 			ConnectedOntodia {
 				...props
@@ -409,10 +409,8 @@ const mapStateToProps = state => {
 		watermarkUrl: state.watermarkUrl,
 		criteria: state.criteria,
 		language: state.language,
-        halo:state.currentIri
-
-
-
+		currentIri: state.currentIri,
+		currentLabel: state.currentLabel
 	};
 };
 
@@ -428,36 +426,111 @@ const mapDispatchToProps = dispatch => {
 				currentEvent: `${e}`
 			});
 		},
-		onPointerDown: (element) => {if (
-			element.target &&
-			 element.target.iri
-			
-		) {
-			var label_text = element.target.data.label.values.filter(function (key) {
-				if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
-					return (key.text)
-				}
-			});
+		typeStyleResolver: (types) => {
+			//BOOK
+			if (types.indexOf('http://lerma.org/Book') !== -1) {
+				return {
+					color: '#80040a',
+					// background: '#ffff3b',
+					// icon: logo_lerma
+				};
+			}
 
-			dispatch({
-				type: 'SETCURRENTIRI',
-				currentIri: element.target.iri
-			});
-			// dispatch({
-			// 	type: 'SETCURRENTLABEL',
-			// 	currentLabel: label_text
-			// });
+			//SNIPPET
+			else if (types.indexOf('http://www.lerma.org/Snippet') !== -1) {
+				return {
+					color: '#9fbe8a',
+				};
+			}
 
-			//call VENTI api
-			state.set('SelectedElement', {
-				currentIri: element.target.iri,
-				type: 'concept',
-				label: label_text,
-			})
-			// //console.log(element)
+			// else if (types.indexOf('http://free.org/Book') !== -1) {
+			// 	return {
+			// 		color: '#80040a',
+			// 		icon: logo_free_book,
+			// 	};
+			// }
+
+			// else if (types.indexOf('http://www.free.org/Snippet') !== -1) {
+			// 	return {
+			// 		color: '#9fbe8a',
+			// 		icon: logo_free_snippet,
+			// 	};
+			// }
+
+			//CONCEPT
+			else if (types.indexOf('http://lerma.org/Concept') !== -1) {
+				return {
+					color: '#00961c',
+				};
+			}
+
+			// //CONCEPT AND FREE
+			// else if (types.indexOf('http://lerma.org/Concept') !== -1 && types.indexOf('http://free.org/Concept') !== -1) {
+			// 	return {
+			// 		color: '#00961c',
+			// 	};
+			// }
+
+			// //CONCEPT FREE
+			// else if (types.indexOf('http://free.org/Concept') !== -1) {
+			// 	return {
+			// 		color: '#6370d0',
+			// 	};
+			// }
 
 
-		}}
+			//METADATA
+			else if (
+				types.indexOf('http://lerma.org/metadata/YearPublication') !== -1
+			) {
+				return {
+					color: '#A9A9A9',
+				};
+			} else if (
+				types.indexOf('http://lerma.org/metadata/Chronology') !== -1
+			) {
+				return {
+					color: '#A9A9A9',
+				};
+			} else if (types.indexOf('http://lerma.org/metadata/Topic') !== -1) {
+				return {
+					color: '#A9A9A9',
+				};
+			} else if (types.indexOf('http://lerma.org/metadata/Typology') !== -1) {
+				return {
+					color: '#A9A9A9',
+				};
+			} else {
+				return {
+					color: '#046380',
+				};
+			}
+		},
+		onPointerDown: (element) => {
+			if (
+				element.target &&
+				element.target.iri
+
+			) {
+				var label_text = element.target.data.label.values.filter(function (key) {
+					if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
+						return (key.text)
+					}
+				});
+
+				dispatch({
+					type: 'SETCURRENTIRI',
+					currentIri: element.target.iri
+				});
+				dispatch({
+					type: 'SETCURRENTLABEL',
+					currentLabel: label_text
+
+				});
+				
+
+			}
+		}
 
 	};
 
