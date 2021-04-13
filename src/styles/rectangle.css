@@ -1,9 +1,14 @@
 .Rectangle{
-    width:400px;
+    width:600px;
     height:auto;
     background: #ccc;
     color:blueviolet;
     border:1px solid black;
     float:right;
+    padding:10px;
 
+}
+span{
+    color:black;
+    font-weight: bold;
 }

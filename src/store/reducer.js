@@ -4,7 +4,7 @@ const ONTODIA_WEBSITE = 'http://arca.diag.uniroma1.it'; //ARCA_WEBSITE
 const initialState = {
     watermarkSvg: ontodiaLogoSvg,
     watermarkUrl: ONTODIA_WEBSITE,
-    criteria: {},
+    // criteria: {},
     
 
 

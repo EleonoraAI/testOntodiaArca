@@ -3,6 +3,7 @@ import React,{Component} from 'react';
 import {
 	connect
 } from 'react-redux';
+
 import '../styles/rectangle.css';
 
 
@@ -15,11 +16,11 @@ import '../styles/rectangle.css';
         
         return (  
             <div className="Rectangle">
-				<h5> Parola ricercata: {this.props.criteria.text}</h5>
-				<p> halo iri : { this.props.currentIri}</p>
-		 </div>
+				<h5><span>criteria: </span>{this.props.criteria ? this.props.criteria.text: 'no result'}</h5>
+				<p> <span>current iri: </span> { this.props.currentIri  ? this.props.currentIri : 'no iri selected'}</p>
+			</div>
         );
-
+		
     }
 
 
@@ -29,7 +30,6 @@ const mapStateToProps = state => {
 		watermarkSvg: state.watermarkSvg,
 		watermarkUrl: state.watermarkUrl,
 		criteria: state.criteria,
-	    language: state.language,
 		currentIri: state.currentIri,
 		currentLabel: state.currentLabel
 	};
@@ -41,12 +41,7 @@ const mapDispatchToProps = dispatch => {
 			type: 'UPDATECRITERIA',
 			criteria: value
 		}),
-		onLanguageChange: (e) => {
-			dispatch({
-				type: 'LANGUAGECHANGE',
-				currentEvent: `${e}`
-			});
-		},
+		
 		
 		onPointerDown: (element) => {
 			if (

@@ -12,8 +12,7 @@ function App() {
     <div className="App">
       <AppOntodiaGraph/>
       <Rectangle/>
-      
-    </div>
+      </div>
   );
 }
 
