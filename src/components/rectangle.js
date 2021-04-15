@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-
+import TitleRectangle from './TitleRectangle';
 import {
 	connect
 } from 'react-redux';
@@ -8,7 +8,6 @@ import '../styles/rectangle.css';
 
 
 
-//  
  class Rectangle extends Component {
     
 
@@ -16,8 +15,9 @@ import '../styles/rectangle.css';
         
         return (  
             <div className="Rectangle">
-				<h5><span>criteria: </span>{this.props.criteria ? this.props.criteria.text: 'no result'}</h5>
-				<p> <span>current iri: </span> { this.props.currentIri  ? this.props.currentIri : 'no iri selected'}</p>
+				< TitleRectangle text={this.props.criteria ? this.props.criteria.text: ''}/>
+				<p> <span>current iri: </span> { this.props.currentIri  ? this.props.currentIri : ''}</p>
+				
 			</div>
         );
 		
