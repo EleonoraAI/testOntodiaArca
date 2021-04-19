@@ -4,10 +4,7 @@ const ONTODIA_WEBSITE = 'http://arca.diag.uniroma1.it'; //ARCA_WEBSITE
 const initialState = {
     watermarkSvg: ontodiaLogoSvg,
     watermarkUrl: ONTODIA_WEBSITE,
-    // criteria: {},
-    
-
-
+    language: 'it'
 }
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -19,14 +16,11 @@ const reducer = (state = initialState, action) => {
             return{
                ...state, language:action.currentEvent
             };
-            case('SETCURRENTIRI'):
+            case('TAKETARGET'):
             return{
-             ...state, currentIri: action.currentIri
+             ...state, target:action.target
             };
-            case('SETCURRENTLABEL'):
-            return{
-             ...state, currentLabel: action.currentLabel
-            };
+            
         default:
             return state;
     }

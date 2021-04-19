@@ -16,7 +16,11 @@ import '../styles/rectangle.css';
         return (  
             <div className="Rectangle">
 				< TitleRectangle text={this.props.criteria ? this.props.criteria.text: ''}/>
-				<p> <span>current iri: </span> { this.props.currentIri  ? this.props.currentIri : ''}</p>
+				<p> <span>halo iri: </span> { this.props.target ? this.props.target.iri : ''}</p>
+				<p> <span>halo label: </span> {this.props.target ? JSON.stringify(this.props.target._data.label.values.filter( (key)=> 
+						key.datatype ?
+						key.text:''
+						)):''}</p>
 				
 			</div>
         );
@@ -30,8 +34,8 @@ const mapStateToProps = state => {
 		watermarkSvg: state.watermarkSvg,
 		watermarkUrl: state.watermarkUrl,
 		criteria: state.criteria,
-		currentIri: state.currentIri,
-		currentLabel: state.currentLabel
+		target: state.target,
+		
 	};
 };
 
@@ -41,34 +45,8 @@ const mapDispatchToProps = dispatch => {
 			type: 'UPDATECRITERIA',
 			criteria: value
 		}),
-		
-		
-		onPointerDown: (element) => {
-			if (
-				element.target &&
-				element.target.iri
-
-			) {
-				var label_text = element.target.data.label.values.filter(function (key) {
-					if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
-						return (key.text)
-					}
-				});
-
-				dispatch({
-					type: 'SETCURRENTIRI',
-					currentIri: element.target.iri
-				});
-				dispatch({
-					type: 'SETCURRENTLABEL',
-					currentLabel: label_text
-
-				});
-				
-
-			}
-		}
-
+	
+	
 	};
 
 };
