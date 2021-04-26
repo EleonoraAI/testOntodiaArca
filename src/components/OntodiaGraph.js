@@ -4,7 +4,7 @@ import {
 	connect
 } from 'react-redux';
 import {
-	State,
+	
 	state
 } from 'venti';
 
@@ -231,57 +231,57 @@ export default class OntodiaGraph extends React.Component {
 
 			
 
-			onPointerDown: (element) => {
-				if (
-					element.target &&
-					element.target.iri &&
-					(!this.state ||
-						(element.target.iri !== this.state.currentIri &&
-							element.target.iri.indexOf('lerma.it') == -1))
-				) {
-					var label_text = element.target.data.label.values.filter(function (key) {
-						if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
-							return (key.text)
-						}
-					});
+			// onPointerMove: (element) => {
+			// 	if (
+			// 		element.target &&
+			// 		element.target.iri &&
+			// 		(!this.state ||
+			// 			(element.target.iri !== this.state.currentIri &&
+			// 				element.target.iri.indexOf('lerma.it') == -1))
+			// 	) {
+			// 		var label_text = element.target.data.label.values.filter(function (key) {
+			// 			if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
+			// 				return (key.text)
+			// 			}
+			// 		});
 
-					this.setState({
-						currentIri: element.target.iri
-					});
-					this.setState({
-						currentLabel: label_text
-					});
+			// 		this.setState({
+			// 			currentIri: element.target.iri
+			// 		});
+			// 		this.setState({
+			// 			currentLabel: label_text
+			// 		});
 
-					//call VENTI api
-					state.set('SelectedElement', {
-						currentIri: element.target.iri,
-						type: 'concept',
-						label: label_text,
-					})
-					// //console.log(element)
+			// 		//call VENTI api
+			// 		state.set('SelectedElement', {
+			// 			currentIri: element.target.iri,
+			// 			type: 'concept',
+			// 			label: label_text,
+			// 		})
+			// 		// //console.log(element)
 
 
-				} else if (
-					element.target &&
-					element.target.iri &&
-					(!this.state ||
-						(element.target.iri !== this.state.currentIri &&
-							element.target.iri.indexOf('lerma.it') >= 1))
-				) {
-					// EXTRACT LABEL WITH datatype: http://www.w3.org/2001/XMLSchema#string
-					var label_text = element.target.data.label.values.filter(function (key) {
-						if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
-							return (key.text)
-						}
-					});
-					//call VENTI api
-					state.set('SelectedElement', {
-						currentIri: element.target.iri,
-						type: 'book',
-						label: label_text,
-					})
-				}
-			},
+			// 	} else if (
+			// 		element.target &&
+			// 		element.target.iri &&
+			// 		(!this.state ||
+			// 			(element.target.iri !== this.state.currentIri &&
+			// 				element.target.iri.indexOf('lerma.it') >= 1))
+			// 	) {
+			// 		// EXTRACT LABEL WITH datatype: http://www.w3.org/2001/XMLSchema#string
+			// 		var label_text = element.target.data.label.values.filter(function (key) {
+			// 			if (key.datatype === "http://www.w3.org/2001/XMLSchema#string") {
+			// 				return (key.text)
+			// 			}
+			// 		});
+			// 		//call VENTI api
+			// 		state.set('SelectedElement', {
+			// 			currentIri: element.target.iri,
+			// 			type: 'book',
+			// 			label: label_text,
+			// 		})
+			// 	}
+			// },
 			
 
 			languages: [{

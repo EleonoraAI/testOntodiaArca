@@ -1,10 +1,11 @@
-import ontodiaLogoSvg from '../../node_modules/arca-ontodia/images/ontodia-logo.svg';
+import ontodiaLogoSvg from '../../src/ontodia-logo.svg';
 const ONTODIA_WEBSITE = 'http://arca.diag.uniroma1.it'; //ARCA_WEBSITE
 
 const initialState = {
     watermarkSvg: ontodiaLogoSvg,
     watermarkUrl: ONTODIA_WEBSITE,
-    language: 'it'
+    language: 'it',
+    
 }
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -20,6 +21,7 @@ const reducer = (state = initialState, action) => {
             return{
              ...state, target:action.target
             };
+            
             
         default:
             return state;

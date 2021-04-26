@@ -18,7 +18,7 @@ import '../styles/rectangle.css';
 				< TitleRectangle text={this.props.criteria ? this.props.criteria.text: ''}/>
 				<p> <span>halo iri: </span> { this.props.target ? this.props.target.iri : ''}</p>
 				<p> <span>halo label: </span> {this.props.target ? JSON.stringify(this.props.target._data.label.values.filter( (key)=> 
-						key.datatype ?
+						key.datatype==='http://www.w3.org/2001/XMLSchema#string' ?
 						key.text:''
 						)):''}</p>
 				
