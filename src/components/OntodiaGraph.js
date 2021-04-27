@@ -358,19 +358,19 @@ const mapDispatchToProps = dispatch => {
 				};
 			}
 
-			// else if (types.indexOf('http://free.org/Book') !== -1) {
-			// 	return {
-			// 		color: '#80040a',
-			// 		icon: logo_free_book,
-			// 	};
-			// }
+			else if (types.indexOf('http://free.org/Book') !== -1) {
+				return {
+					color: '#80040a',
+					//icon: logo_free_book,
+				};
+			}
 
-			// else if (types.indexOf('http://www.free.org/Snippet') !== -1) {
-			// 	return {
-			// 		color: '#9fbe8a',
-			// 		icon: logo_free_snippet,
-			// 	};
-			// }
+			else if (types.indexOf('http://www.free.org/Snippet') !== -1) {
+				return {
+					color: '#9fbe8a',
+					//icon: logo_free_snippet,
+				};
+			}
 
 			//CONCEPT
 			else if (types.indexOf('http://lerma.org/Concept') !== -1) {
@@ -380,18 +380,18 @@ const mapDispatchToProps = dispatch => {
 			}
 
 			// //CONCEPT AND FREE
-			// else if (types.indexOf('http://lerma.org/Concept') !== -1 && types.indexOf('http://free.org/Concept') !== -1) {
-			// 	return {
-			// 		color: '#00961c',
-			// 	};
-			// }
+			else if (types.indexOf('http://lerma.org/Concept') !== -1 && types.indexOf('http://free.org/Concept') !== -1) {
+				return {
+					color: '#00961c',
+				};
+			}
 
 			// //CONCEPT FREE
-			// else if (types.indexOf('http://free.org/Concept') !== -1) {
-			// 	return {
-			// 		color: '#6370d0',
-			// 	};
-			// }
+			else if (types.indexOf('http://free.org/Concept') !== -1) {
+				return {
+					color: '#6370d0',
+				};
+			}
 
 
 			//METADATA
@@ -422,12 +422,12 @@ const mapDispatchToProps = dispatch => {
 			}
 		},
 		onPointerDown: (element) => {
-			if(element){
+			
 			dispatch({
 					type: 'TAKETARGET',
 					target: element.target
 				});
-			}
+			
 		},
 		viewOptions: {
 			onIriClick: ({
